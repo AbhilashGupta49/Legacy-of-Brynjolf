@@ -29,5 +29,7 @@ public enum MoveResult {
 	/**
 	 * The guard collision moved. Also checks if there is a movement in the matrix.
 	 */
-	GUARD_COLLISION_MOVED
+	GUARD_COLLISION_MOVED,
+	/** The inconclusive. If game has no result. */
+	INCONCLUSIVE
 }

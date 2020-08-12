@@ -85,11 +85,12 @@ public class MovesExecutionServiceImpl implements MovesExecutionService {
 				undecidedMoves--;
 				if (undecidedMoves == 0) {
 					// Returns that the actors have not moved for the last (n) number of moves.
+					gameResult.setMoveResult(MoveResult.UNDECIDED);
 					return gameResult;
 				}
 			}
 		}
-		gameResult.setMoveResult(MoveResult.UNDECIDED);
+		gameResult.setMoveResult(MoveResult.INCONCLUSIVE);
 		return gameResult;
 	}
 
@@ -104,7 +105,7 @@ public class MovesExecutionServiceImpl implements MovesExecutionService {
 		// all permutations of a particular length are tried and then next length for
 		// the passing permutations.
 		Queue<String> additionalMoves = movesGeneratorService.generateNextMoves("");
-		while (!additionalMoves.isEmpty()) {
+		while (additionalMoves != null && !additionalMoves.isEmpty()) {
 			String moves = additionalMoves.remove();
 			LOG.debug("Trying: {}{}", gameResult.getMoves(), moves);
 			gameResult.setAdditionalMoves(moves);
@@ -120,15 +121,17 @@ public class MovesExecutionServiceImpl implements MovesExecutionService {
 				gameResult.setMoveResult(MoveResult.WIN_ADDITIONAL_MOVES);
 				gameResult.setRoom(room);
 				return;
-			} else if (moveResult == MoveResult.UNDECIDED) {
-				// If a permutation did not conclude and it is possible to take another step,
-				// then add the next length of permutations to the queue.
+			} else if (moveResult == MoveResult.INCONCLUSIVE) {
+				// If a permutation did not lose/undecided and it is possible to take another
+				// step, then add the next length of permutations to the queue.
 				Queue<String> temp = movesGeneratorService.generateNextMoves(moves);
 				if (temp != null) {
 					additionalMoves.addAll(temp);
 				}
 			}
 		}
+
+		// No possible solution, return stuck.
 		gameResult.setAdditionalMoves("");
 		gameResult.setMoveResult(MoveResult.STUCK);
 	}

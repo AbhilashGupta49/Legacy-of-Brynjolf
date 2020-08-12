@@ -121,4 +121,14 @@ public class Coordinate implements Cloneable {
 		return true;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+		return "Coordinate [x=" + x + ", y=" + y + "]";
+	}
+
 }

@@ -14,4 +14,12 @@ public interface InitializeRoomService {
 	 */
 	Room setupRoom();
 
+	/**
+	 * Validate.
+	 *
+	 * @param matrix the matrix
+	 * @return true, if successful
+	 */
+	boolean validate(char[][] matrix);
+
 }

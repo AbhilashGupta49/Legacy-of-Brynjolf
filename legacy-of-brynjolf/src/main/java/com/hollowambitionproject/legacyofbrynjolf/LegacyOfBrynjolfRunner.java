@@ -62,7 +62,8 @@ public class LegacyOfBrynjolfRunner {
 		// Executing initial moves.
 		gameResult = movesExecutionService.executeMoves(gameResult.getRoom(), gameResult.getMoves());
 		MoveResult moveResult = gameResult.getMoveResult();
-		if (moveResult == MoveResult.WIN || moveResult == MoveResult.LOSE) {
+		// Show result if game has reached conclusion.
+		if (moveResult == MoveResult.WIN || moveResult == MoveResult.LOSE || moveResult == MoveResult.UNDECIDED) {
 			DisplayUtil.displayResult(gameResult);
 		}
 

@@ -89,13 +89,20 @@ public class InitializeRoomServiceImpl implements InitializeRoomService {
 	 * @param matrix the matrix
 	 * @return true, if successful
 	 */
-	private boolean validate(char[][] matrix) {
+	@Override
+	public boolean validate(char[][] matrix) {
 		boolean valid = true;
 		boolean brynjolfPresent = false;
 		boolean exitPresent = false;
 		if (matrix.length >= MAX_SIZE) {
 			valid = false;
 			LOG.error("Rows greater than max size allowed ({})", MAX_SIZE);
+		}
+
+		// Checks if matrix is a square or not.
+		if (matrix.length != matrix[0].length) {
+			valid = false;
+			LOG.error("Matrix is not a square");
 		}
 
 		for (int i = 0; i < matrix.length; i++) {

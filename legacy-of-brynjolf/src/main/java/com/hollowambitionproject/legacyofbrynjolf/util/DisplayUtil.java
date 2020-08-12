@@ -48,7 +48,7 @@ public class DisplayUtil {
 			System.out.printf("\nWin: %s\n", result.getAdditionalMoves());
 			break;
 		case UNDECIDED:
-			System.out.printf("\nGame is undecided after %d moves\n", currentMoves);
+			System.out.printf("\nGame is undecided(no movement) after %d user moves\n", currentMoves);
 			break;
 		case STUCK:
 			System.out.println("\nStuck: no way to win\n");
